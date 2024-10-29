@@ -143,6 +143,7 @@ enum css_properties_e {
 	CSS_PROP_FILL					= 0x07e,
 	CSS_PROP_STROKE					= 0x07f,
 	CSS_PROP_STROKE_WIDTH			= 0x080,
+	CSS_PROP_TRANSFORM	            = 0x081,
 
 	CSS_N_PROPERTIES
 };
@@ -750,6 +751,12 @@ enum css_paint_e {
 enum css_stroke_width_e {
 	CSS_STROKE_WIDTH_INHERIT	= 0x0,
 	CSS_STROKE_WIDTH_SET		= 0x1
+};
+
+enum css_transform_e {
+	CSS_TRANSFORM_INHERIT		= 0x0,
+	CSS_TRANSFORM_NONE			= 0x1,
+	CSS_TRANSFORM_SET			= 0x2
 };
 
 enum css_padding_e {

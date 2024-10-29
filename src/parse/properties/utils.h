@@ -252,4 +252,8 @@ css_error css__parse_calc(css_language *c,
 		css_style *result,
 		css_code_t OPV,
 		uint32_t unit);
+css_error css__parse_transform_specifier(css_language *c,
+		const parserutils_vector *vector, int32_t *ctx,
+		uint16_t *value, css_matrix *result);
+
 #endif

@@ -813,6 +813,11 @@ enum op_top {
 	TOP_AUTO			= BOTTOM_AUTO
 };
 
+enum op_transform {
+	TRANSFORM_SET				= 0x0080,
+	TRANSFORM_NONE			    = 0x0000
+};
+
 enum op_unicode_bidi {
 	UNICODE_BIDI_NORMAL		= 0x0000,
 	UNICODE_BIDI_EMBED		= 0x0001,

@@ -444,6 +444,14 @@ void css__make_style_important(css_style *style)
 				}
 				break;
 
+			case CSS_PROP_TRANSFORM:
+				switch (value) {
+				case TRANSFORM_SET:
+					offset += 6; /* 2x3 matrix */
+					break;
+				}
+				break;
+
 			case CSS_PROP_Z_INDEX:
 				if (value == Z_INDEX_SET)
 					offset++; /* z index */

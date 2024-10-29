@@ -118,6 +118,7 @@ text_decoration.c \
 text_indent.c \
 text_transform.c \
 top.c \
+transform.c \
 unicode_bidi.c \
 vertical_align.c \
 visibility.c \

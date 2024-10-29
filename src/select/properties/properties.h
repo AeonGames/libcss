@@ -140,6 +140,7 @@ PROPERTY_FUNCS(text_decoration);
 PROPERTY_FUNCS(text_indent);
 PROPERTY_FUNCS(text_transform);
 PROPERTY_FUNCS(top);
+PROPERTY_FUNCS(transform);
 PROPERTY_FUNCS(unicode_bidi);
 PROPERTY_FUNCS(vertical_align);
 PROPERTY_FUNCS(visibility);

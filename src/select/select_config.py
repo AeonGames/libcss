@@ -16,7 +16,8 @@ values = {
     ('string', 'lwc_string*'),
     ('string_arr', 'lwc_string**'),
     ('counter_arr', 'css_computed_counter*'),
-    ('content_item', 'css_computed_content_item*')
+    ('content_item', 'css_computed_content_item*'),
+    ('matrix', 'css_matrix', 4 * 6, '0'),
 }
 
 # Configuration of property groups.
@@ -72,6 +73,7 @@ style = {
     ('border_left_color', 2, 'color'),
     ('fill', 3, 'color'),
     ('stroke', 3, 'color'),
+    ('transform', 2, 'matrix'),
     ('stroke_width', 1, 'length', 'CSS_STROKE_WIDTH_SET'),
     ('border_top_width', 3, 'length', 'CSS_BORDER_WIDTH_WIDTH'),
     ('border_right_width', 3, 'length', 'CSS_BORDER_WIDTH_WIDTH'),

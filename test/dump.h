@@ -496,6 +496,7 @@ static const char *opcode_names[] = {
 	"fill",
 	"stroke",
 	"stroke-width",
+	"transform",
 };
 
 static void dump_css_fixed(css_fixed f, char **ptr)
@@ -2741,6 +2742,23 @@ void dump_bytecode(css_style *style, char **ptr, uint32_t depth)
 				case TEXT_TRANSFORM_NONE:
 					*ptr += sprintf(*ptr, "none");
 					break;
+				}
+				break;
+			case CSS_PROP_TRANSFORM:
+				switch (value) {
+				case TRANSFORM_NONE:
+					*ptr += sprintf(*ptr, "none");
+					break;
+				case TRANSFORM_SET:
+					{
+						css_matrix val = *((css_matrix *) bytecode);
+						ADVANCE(sizeof(val));
+						*ptr += sprintf(*ptr, "matrix(%f, %f, %f, %f, %f, %f)",
+										FIXTOFLT(val.m[0]),FIXTOFLT(val.m[1]),
+										FIXTOFLT(val.m[2]),FIXTOFLT(val.m[3]),
+										FIXTOFLT(val.m[4]),FIXTOFLT(val.m[5]));
+						break;
+					}
 				}
 				break;
 			case CSS_PROP_UNICODE_BIDI:

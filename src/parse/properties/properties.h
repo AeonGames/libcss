@@ -439,6 +439,9 @@ css_error css__parse_text_transform(css_language *c,
 css_error css__parse_top(css_language *c,
 		const parserutils_vector *vector, int32_t *ctx,
 		css_style *result);
+css_error css__parse_transform(css_language *c,
+		const parserutils_vector *vector, int32_t *ctx,
+		css_style *result);
 css_error css__parse_unicode_bidi(css_language *c,
 		const parserutils_vector *vector, int32_t *ctx,
 		css_style *result);
@@ -550,6 +553,7 @@ extern const uint32_t property_unit_mask[CSS_N_PROPERTIES];
 #define UNIT_MASK_TEXT_INDENT           (UNIT_LENGTH | UNIT_PCT)
 #define UNIT_MASK_TEXT_TRANSFORM        (0)
 #define UNIT_MASK_TOP                   (UNIT_LENGTH | UNIT_PCT)
+#define UNIT_MASK_TRANSFORM             (0)
 #define UNIT_MASK_UNICODE_BIDI          (0)
 #define UNIT_MASK_VERTICAL_ALIGN        (UNIT_LENGTH | UNIT_PCT)
 #define UNIT_MASK_VISIBILITY            (0)
