@@ -1432,4 +1432,14 @@ Opcodes
 			bit 7 clear => Reserved for future expansion
 				bits 0-6: MBZ
 
-81-3ff - Reserved for future expansion.
+81 - transform
+	<value> (14bits) :
+		bits 8-13: MBZ
+		bits 0-7 :
+			bit 7 set => transform matrix follows
+				bits 0-6: MBZ
+			bit 7 clear => keyword value
+			bits 0-6: 0000000 => none,
+				  other   => rffe.
+
+82-3ff - Reserved for future expansion.

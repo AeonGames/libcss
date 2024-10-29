@@ -199,6 +199,13 @@ typedef struct css_media_resolution {
 } css_media_resolution;
 
 /**
+ * Transform Matrix
+ */
+typedef struct css_matrix {
+	css_fixed m[6];
+} css_matrix;
+
+/**
  * Media specification
  */
 typedef struct css_media {

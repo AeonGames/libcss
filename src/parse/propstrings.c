@@ -225,6 +225,7 @@ const stringmap_entry stringmap[LAST_KNOWN] = {
 	SMAP("text-indent"),
 	SMAP("text-transform"),
 	SMAP("top"),
+	SMAP("transform"),
 	SMAP("unicode-bidi"),
 	SMAP("vertical-align"),
 	SMAP("visibility"),
@@ -497,6 +498,7 @@ const stringmap_entry stringmap[LAST_KNOWN] = {
 	SMAP("calc"),
 	SMAP("context-fill"),
 	SMAP("context-stroke"),
+	SMAP("matrix"),
 
 	SMAP("aliceblue"),
 	SMAP("antiquewhite"),

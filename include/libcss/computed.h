@@ -536,6 +536,10 @@ uint8_t css_computed_order(
 		const css_computed_style *style,
 		int32_t *order);
 
+uint8_t css_computed_transform(
+		const css_computed_style *style,
+		css_matrix *matrix);
+
 #ifdef __cplusplus
 }
 #endif

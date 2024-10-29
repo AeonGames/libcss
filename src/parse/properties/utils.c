@@ -1694,3 +1694,74 @@ cleanup:
 
 	return error;
 }
+
+/**
+ * Parse a transform specifier
+ *
+ * \param c       Parsing context
+ * \param vector  Vector of tokens to process
+ * \param ctx     Pointer to vector iteration context
+ * \param value   Pointer to location to receive value
+ * \param result  Pointer to location to receive result
+ * \return CSS_OK      on success,
+ *         CSS_INVALID if the input is invalid
+ *
+ * Post condition: \a *ctx is updated with the next token to process
+ *                 If the input is invalid, then \a *ctx remains unchanged.
+ */
+css_error css__parse_transform_specifier(css_language *c,
+		const parserutils_vector *vector, int32_t *ctx,
+		uint16_t *value, css_matrix *result)
+{
+	int32_t orig_ctx = *ctx;
+	const css_token *token;
+	bool match;
+	css_fixed matrix[6];
+	consumeWhitespace(vector, ctx);
+
+	/* FUNCTION(matrix) [ NUMBER ',' ] {6} ')' */
+	token = parserutils_vector_iterate(vector, ctx);
+
+	if (token->type == CSS_TOKEN_FUNCTION)
+	{
+		if ((lwc_string_caseless_isequal(
+				token->idata, c->strings[MATRIX],
+				&match) == lwc_error_ok && match))
+			{
+				for (size_t i = 0; i < 6; ++i)
+				{
+					size_t consumed = 0;
+					consumeWhitespace(vector, ctx);
+					token = parserutils_vector_peek(vector, *ctx);
+					if (token == NULL || token->type !=	CSS_TOKEN_NUMBER)
+						{*ctx = orig_ctx; return CSS_INVALID;}
+					matrix[i] = css__number_from_lwc_string(token->idata,
+							false, &consumed);
+					if (consumed != lwc_string_length(token->idata))
+						{*ctx = orig_ctx; return CSS_INVALID;}
+
+					parserutils_vector_iterate(vector, ctx);
+
+					consumeWhitespace(vector, ctx);
+
+					token = parserutils_vector_peek(vector, *ctx);
+					if (token == NULL)
+						{*ctx = orig_ctx; return CSS_INVALID;}
+
+					if (i != 5 &&
+							tokenIsChar(token, ',')) {
+						parserutils_vector_iterate(vector, ctx);
+					} else if (i == 5 &&
+							tokenIsChar(token, ')')) {
+						parserutils_vector_iterate(vector, ctx);
+					} else {*ctx = orig_ctx; return CSS_INVALID;}
+				}
+			} else {*ctx = orig_ctx; return CSS_INVALID;}
+
+		memcpy(result->m, matrix, sizeof(css_fixed) * 6);
+	}
+
+	*value = TRANSFORM_SET;
+
+	return CSS_OK;
+}

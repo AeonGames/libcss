@@ -183,3 +183,18 @@ static inline css_error set_content(
 
 	return CSS_OK;
 }'''
+
+overrides['set']['transform'] = '''\
+static inline css_error set_transform(css_computed_style *style, uint8_t type,
+		const css_matrix* matrix)
+{
+	uint32_t *bits = &style->i.bits[TRANSFORM_INDEX];
+
+	/* 2bits: tt : type */
+	*bits = (*bits & ~TRANSFORM_MASK) | (((uint32_t)type & 0x3) <<
+			TRANSFORM_SHIFT);
+
+	style->i.transform = *matrix;
+
+	return CSS_OK;
+}'''

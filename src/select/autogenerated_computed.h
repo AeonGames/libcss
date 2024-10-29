@@ -116,6 +116,7 @@ struct css_computed_style_i {
  * text_indent                      1 + 5           4
  * text_transform                   3             
  * top                              2 + 5           4
+ * transform                        2              24
  * unicode_bidi                     2             
  * vertical_align                   4 + 5           4
  * visibility                       2             
@@ -155,9 +156,9 @@ struct css_computed_style_i {
  * quotes                           1             sizeof(ptr)
  * 
  * ---                            ---             ---
- *                                476 bits        248 + 8sizeof(ptr) bytes
+ *                                478 bits        272 + 8sizeof(ptr) bytes
  *                                ===================
- *                                308 + 8sizeof(ptr) bytes
+ *                                332 + 8sizeof(ptr) bytes
  * 
  * Bit allocations:
  * 
@@ -197,10 +198,11 @@ struct css_computed_style_i {
  * display; cursor; break_inside; break_before; break_after; border_top_style;
  * border_right_style; writing_mode
  * 
- * 11 ttppoollffnnaaeemmddccuurriiCCss
- * table_layout; page_break_inside; outline_color; list_style_position;
- * font_variant; font_style; float; flex_wrap; empty_cells; direction; content;
- * column_span; column_rule_color; column_fill; column_count; caption_side
+ * 11 ttaappoollffnnFFeemmddccuurriiCC
+ * transform; table_layout; page_break_inside; outline_color;
+ * list_style_position; font_variant; font_style; float; flex_wrap;
+ * empty_cells; direction; content; column_span; column_rule_color;
+ * column_fill; column_count
  * 
  * 12 bbbbbbbbbbbaaaaaaaaaaavvvvvvvvvw
  * border_spacing; background_position; vertical_align; widows
@@ -210,9 +212,9 @@ struct css_computed_style_i {
  * background_repeat; align_self; align_items; align_content; visibility;
  * unicode_bidi; stroke_opacity
  * 
- * 14 bboorrddeettaaccqpOilfxyunCk....
- * box_sizing; border_top_color; border_right_color; border_left_color;
- * border_collapse; border_bottom_color; background_color;
+ * 14 ccbboorrddeettaakkqpOilfxyunCg..
+ * caption_side; box_sizing; border_top_color; border_right_color;
+ * border_left_color; border_collapse; border_bottom_color; background_color;
  * background_attachment; quotes; orphans; order; opacity; list_style_image;
  * flex_shrink; flex_grow; fill_opacity; counter_reset; counter_increment;
  * color; background_image
@@ -278,6 +280,7 @@ struct css_computed_style_i {
 	css_fixed stroke_width;
 	css_fixed text_indent;
 	css_fixed top;
+	css_matrix transform;
 	css_fixed vertical_align;
 	int32_t widows;
 	css_fixed_or_calc width;

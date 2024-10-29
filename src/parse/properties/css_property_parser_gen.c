@@ -346,6 +346,33 @@ void output_calc(FILE *outputf, struct keyval *parseid, struct keyval_list *kvli
 	);
 }
 
+void output_transform(FILE *outputf, struct keyval *parseid, struct keyval_list *kvlist)
+{
+	fprintf(outputf,
+		"{\n"
+		"\t\tuint16_t value = 0;\n"
+		"\t\tcss_matrix matrix = { .m = { 1024, 0, 0, 1024, 0, 0} };\n"
+		"\t\t*ctx = orig_ctx;\n\n"
+		"\t\terror = css__parse_transform_specifier(c, vector, ctx, &value, &matrix);\n"
+		"\t\tif (error != CSS_OK) {\n"
+		"\t\t\t*ctx = orig_ctx;\n"
+		"\t\t\treturn error;\n"
+		"\t\t}\n\n"
+		"\t\terror = css__stylesheet_style_appendOPV(result, %s, 0, value);\n"
+		"\t\tif (error != CSS_OK) {\n"
+		"\t\t\t*ctx = orig_ctx;\n"
+		"\t\t\treturn error;\n"
+		"\t\t}\n"
+		"\n"
+		"\t\tif (value == TRANSFORM_SET)\n"
+		"\t\t\terror = css__stylesheet_style_vappend(result, 6,\n"
+		"\t\t\t\t\tmatrix.m[0], matrix.m[1],\n"
+		"\t\t\t\t\tmatrix.m[2], matrix.m[3],\n"
+		"\t\t\t\t\tmatrix.m[4], matrix.m[5]);\n"
+		"\t}\n\n",
+		parseid->val);
+}
+
 void output_length_unit(FILE *outputf, struct keyval *parseid, struct keyval_list *kvlist)
 {
 	struct keyval *ckv = kvlist->item[0];
@@ -558,6 +585,7 @@ int main(int argc, char **argv)
 	struct keyval_list NUMBER;
 	struct keyval_list COLOR;
 	struct keyval_list CALC;
+	struct keyval_list TRANSFORM;
 
 
 	if (argc < 2) {
@@ -591,6 +619,7 @@ int main(int argc, char **argv)
 	LENGTH_UNIT.count = 0;
 	IDENT_LIST.count = 0;
 	CALC.count = 0;
+	TRANSFORM.count = 0;
 
 	curlist = &base;
 
@@ -655,6 +684,10 @@ int main(int argc, char **argv)
 			COLOR.item[COLOR.count++] = rkv;
 			do_token_check = false;
 			only_ident = false;
+		} else if (strcmp(rkv->key, "TRANSFORM") == 0) {
+			TRANSFORM.item[TRANSFORM.count++] = rkv;
+			do_token_check = false;
+			only_ident = false;
 		} else if (strcmp(rkv->key, "URI") == 0) {
 			URI.item[URI.count++] = rkv;
 			only_ident = false;
@@ -702,6 +735,8 @@ int main(int argc, char **argv)
 			output_length_unit(outputf, base.item[0], &LENGTH_UNIT);
 		} else if (IDENT_LIST.count > 0) {
 			output_ident_list(outputf, base.item[0], &IDENT_LIST);
+		} else if (TRANSFORM.count > 0) {
+			output_transform(outputf, base.item[0], &TRANSFORM);
 		} else {
 			output_invalidcss(outputf);
 		}
