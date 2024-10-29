@@ -1,3 +1,6 @@
+> [!NOTE]  
+> This is a Fork of the [original libCSS](https://www.netsurf-browser.org/projects/libcss/), this fork contains patches to support SVG CSS attributes in addition to the base library.
+
 LibCSS -- a CSS parser and selection engine
 ===========================================
 
