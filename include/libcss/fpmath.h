@@ -65,7 +65,7 @@ css_divide_fixed(const css_fixed x, const css_fixed y) {
 	if (xx > INT_MAX)
 		xx = INT_MAX;
 
-	return xx;
+	return (css_fixed) xx;
 }
 
 static inline css_fixed
@@ -78,7 +78,7 @@ css_multiply_fixed(const css_fixed x, const css_fixed y) {
 	if (xx > INT_MAX)
 		xx = INT_MAX;
 
-	return xx;
+	return (css_fixed) xx;
 }
 
 static inline css_fixed
@@ -91,7 +91,7 @@ css_int_to_fixed(const int a) {
 	if (xx > INT_MAX)
 		xx = INT_MAX;
 
-	return xx;
+	return (css_fixed) xx;
 }
 
 static inline css_fixed

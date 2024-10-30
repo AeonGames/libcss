@@ -110,7 +110,7 @@
 /* set_visibility(style, 0, 0, CSS_UNIT_PX); */
 /* set_white_space(style, 0, 0, CSS_UNIT_PX); */
 /* set_widows(style, 0, 0, CSS_UNIT_PX); */
-set_width(style, 0, (css_fixed_or_calc)0, CSS_UNIT_PX);
+set_width(style, 0, (css_fixed_or_calc){ .value = 0, .calc = NULL }, CSS_UNIT_PX);
 /* set_word_spacing(style, 0, 0, CSS_UNIT_PX); */
 /* set_writing_mode(style, 0, 0, CSS_UNIT_PX); */
 /* set_z_index(style, 0, 0, CSS_UNIT_PX); */
