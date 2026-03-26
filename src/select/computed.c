@@ -1585,8 +1585,8 @@ css_error compute_absolute_border_side_width(css_computed_style *style,
 		css_error (*set)(css_computed_style *style, uint8_t type,
 				css_fixed len, css_unit unit))
 {
-	css_fixed length;
-	css_unit unit;
+	css_fixed length = 0;
+	css_unit unit = CSS_UNIT_PX;
 
 	switch (get(style, &length, &unit)) {
 	case CSS_BORDER_WIDTH_THIN:
@@ -1916,8 +1916,8 @@ css_error compute_absolute_length_pair(css_computed_style *style,
 				css_fixed len1, css_unit unit1,
 				css_fixed len2, css_unit unit2))
 {
-	css_fixed length1, length2;
-	css_unit unit1, unit2;
+	css_fixed length1 = 0, length2 = 0;
+	css_unit unit1 = CSS_UNIT_PX, unit2 = CSS_UNIT_PX;
 	uint8_t type;
 
 	type = get(style, &length1, &unit1, &length2, &unit2);
