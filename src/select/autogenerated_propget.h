@@ -1344,7 +1344,7 @@ static inline uint8_t get_fill_bits(const css_computed_style *style)
 	return (bits & 0x7);
 }
 static inline uint8_t get_fill(const css_computed_style *style, css_color
-		*color)
+		*color, lwc_string **uri)
 {
 	uint32_t bits = style->i.bits[FILL_INDEX];
 	bits &= FILL_MASK;
@@ -1352,6 +1352,7 @@ static inline uint8_t get_fill(const css_computed_style *style, css_color
 
 	/* 3bits: ttt : type */
 	*color = style->i.fill;
+	*uri = style->i.fill_uri;
 
 	return (bits & 0x7);
 }
@@ -2708,7 +2709,7 @@ static inline uint8_t get_stroke_bits(const css_computed_style *style)
 	return (bits & 0x7);
 }
 static inline uint8_t get_stroke(const css_computed_style *style, css_color
-		*color)
+		*color, lwc_string **uri)
 {
 	uint32_t bits = style->i.bits[STROKE_INDEX];
 	bits &= STROKE_MASK;
@@ -2716,6 +2717,7 @@ static inline uint8_t get_stroke(const css_computed_style *style, css_color
 
 	/* 3bits: ttt : type */
 	*color = style->i.stroke;
+	*uri = style->i.stroke_uri;
 
 	return (bits & 0x7);
 }

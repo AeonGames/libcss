@@ -369,11 +369,13 @@ uint8_t css_computed_stroke_opacity(
 
 uint8_t css_computed_fill(
 		const css_computed_style *style,
-		css_color *color);
+		css_color *color,
+		lwc_string **uri);
 
 uint8_t css_computed_stroke(
 		const css_computed_style *style,
-		css_color *color);
+		css_color *color,
+		lwc_string **uri);
 
 uint8_t css_computed_stroke_width(
 		const css_computed_style *style,

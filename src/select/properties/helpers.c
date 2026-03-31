@@ -59,10 +59,12 @@ css_error css__cascade_bg_border_color(uint32_t opv, css_style *style,
 
 css_error css__cascade_paint(uint32_t opv, css_style *style,
 		css_select_state *state,
-		css_error (*fun)(css_computed_style *, uint8_t, css_color))
+		css_error (*fun)(css_computed_style *, uint8_t, css_color,
+				lwc_string *))
 {
 	uint16_t value = CSS_PAINT_INHERIT;
 	css_color color = 0;
+	lwc_string *uri = NULL;
 
 	if (hasFlagValue(opv) == false) {
 		switch (getValue(opv)) {
@@ -75,6 +77,12 @@ css_error css__cascade_paint(uint32_t opv, css_style *style,
 		case PAINT_NONE:
 			value = CSS_PAINT_NONE;
 			break;
+		case PAINT_URI_SET:
+			value = CSS_PAINT_URI;
+			css__stylesheet_string_get(style->sheet,
+				*((css_code_t *) style->bytecode), &uri);
+			advance_bytecode(style, sizeof(css_code_t));
+			break;
 		case PAINT_COLOR_SET:
 			value = CSS_PAINT_COLOR;
 			color = *((css_color *) style->bytecode);
@@ -85,7 +93,7 @@ css_error css__cascade_paint(uint32_t opv, css_style *style,
 
 	if (css__outranks_existing(getOpcode(opv), isImportant(opv), state,
 			getFlagValue(opv))) {
-		return fun(state->computed, value, color);
+		return fun(state->computed, value, color, uri);
 	}
 
 	return CSS_OK;

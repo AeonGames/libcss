@@ -194,6 +194,8 @@ css_error css_computed_style_destroy(css_computed_style *style)
 
 	lwc_string_unref(style->i.list_style_image);
 	lwc_string_unref(style->i.background_image);
+	lwc_string_unref(style->i.fill_uri);
+	lwc_string_unref(style->i.stroke_uri);
 
 	if (style->calc != NULL)
 		css_calculator_unref(style->calc);
@@ -887,15 +889,15 @@ uint8_t css_computed_opacity(const css_computed_style *style,
 }
 
 uint8_t css_computed_fill(const css_computed_style *style,
-		css_color *color)
+		css_color *color, lwc_string **uri)
 {
-	return get_fill(style, color);
+	return get_fill(style, color, uri);
 }
 
 uint8_t css_computed_stroke(const css_computed_style *style,
-		css_color *color)
+		css_color *color, lwc_string **uri)
 {
-	return get_stroke(style, color);
+	return get_stroke(style, color, uri);
 }
 
 uint8_t css_computed_stroke_width(const css_computed_style *style,

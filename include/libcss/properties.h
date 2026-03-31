@@ -746,6 +746,7 @@ enum css_paint_e {
 	CSS_PAINT_CONTEXT_FILL		= 0x2,
 	CSS_PAINT_CONTEXT_STROKE	= 0x3,
 	CSS_PAINT_COLOR				= 0x4,
+	CSS_PAINT_URI				= 0x5,
 };
 
 enum css_stroke_width_e {

@@ -1070,7 +1070,7 @@ static inline css_error set_empty_cells(css_computed_style *style, uint8_t type)
 #define FILL_MASK 0x700000
 
 static inline css_error set_fill(css_computed_style *style, uint8_t type,
-		css_color color)
+		css_color color, lwc_string *uri)
 {
 	uint32_t *bits = &style->i.bits[FILL_INDEX];
 
@@ -1078,6 +1078,14 @@ static inline css_error set_fill(css_computed_style *style, uint8_t type,
 	*bits = (*bits & ~FILL_MASK) | (((uint32_t)type & 0x7) << FILL_SHIFT);
 
 	style->i.fill = color;
+
+	lwc_string *old_uri = style->i.fill_uri;
+	if (uri != NULL) {
+		style->i.fill_uri = lwc_string_ref(uri);
+	} else {
+		style->i.fill_uri = NULL;
+	}
+	lwc_string_unref(old_uri);
 
 	return CSS_OK;
 }
@@ -2053,7 +2061,7 @@ static inline css_error set_right(css_computed_style *style, uint8_t type,
 #define STROKE_MASK 0x38000
 
 static inline css_error set_stroke(css_computed_style *style, uint8_t type,
-		css_color color)
+		css_color color, lwc_string *uri)
 {
 	uint32_t *bits = &style->i.bits[STROKE_INDEX];
 
@@ -2062,6 +2070,14 @@ static inline css_error set_stroke(css_computed_style *style, uint8_t type,
 			STROKE_SHIFT);
 
 	style->i.stroke = color;
+
+	lwc_string *old_uri = style->i.stroke_uri;
+	if (uri != NULL) {
+		style->i.stroke_uri = lwc_string_ref(uri);
+	} else {
+		style->i.stroke_uri = NULL;
+	}
+	lwc_string_unref(old_uri);
 
 	return CSS_OK;
 }

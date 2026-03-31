@@ -247,6 +247,7 @@ struct css_computed_style_i {
 	css_fixed column_rule_width;
 	css_fixed column_width;
 	css_color fill;
+	lwc_string *fill_uri;
 	css_fixed fill_opacity;
 	css_fixed flex_basis;
 	css_fixed flex_grow;
@@ -276,6 +277,7 @@ struct css_computed_style_i {
 	css_fixed padding_top;
 	css_fixed right;
 	css_color stroke;
+	lwc_string *stroke_uri;
 	css_fixed stroke_opacity;
 	css_fixed stroke_width;
 	css_fixed text_indent;

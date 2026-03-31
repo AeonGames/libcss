@@ -23,13 +23,16 @@ css_error css__cascade_stroke(uint32_t opv, css_style *style,
 css_error css__set_stroke_from_hint(const css_hint *hint,
 		css_computed_style *style)
 {
-	return set_stroke(style, hint->status, hint->data.color);
+	if (hint->status == CSS_PAINT_URI) {
+		return set_stroke(style, hint->status, 0, hint->data.string);
+	}
+	return set_stroke(style, hint->status, hint->data.color, NULL);
 }
 
 css_error css__initial_stroke(css_select_state *state)
 {
 	return set_stroke(state->computed,
-			CSS_PAINT_NONE, 0);
+			CSS_PAINT_NONE, 0, NULL);
 }
 
 css_error css__copy_stroke(
@@ -37,13 +40,14 @@ css_error css__copy_stroke(
 		css_computed_style *to)
 {
 	css_color color;
-	uint8_t type = get_stroke(from, &color);
+	lwc_string *uri;
+	uint8_t type = get_stroke(from, &color, &uri);
 
 	if (from == to) {
 		return CSS_OK;
 	}
 
-	return set_stroke(to, type, color);
+	return set_stroke(to, type, color, uri);
 }
 
 css_error css__compose_stroke(const css_computed_style *parent,
@@ -51,7 +55,8 @@ css_error css__compose_stroke(const css_computed_style *parent,
 		css_computed_style *result)
 {
 	css_color color;
-	uint8_t type = get_stroke(child, &color);
+	lwc_string *uri;
+	uint8_t type = get_stroke(child, &color, &uri);
 
 	return css__copy_stroke(
 			type == CSS_PAINT_INHERIT ? parent : child,
