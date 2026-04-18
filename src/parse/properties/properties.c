@@ -297,4 +297,5 @@ const uint32_t property_unit_mask[CSS_N_PROPERTIES] = {
 	[CSS_PROP_FLEX_WRAP]             = UNIT_MASK_FLEX_WRAP,
 	[CSS_PROP_JUSTIFY_CONTENT]       = UNIT_MASK_JUSTIFY_CONTENT,
 	[CSS_PROP_ORDER]                 = UNIT_MASK_ORDER,
+	[CSS_PROP_TEXT_ANCHOR]           = UNIT_MASK_TEXT_ANCHOR,
 };

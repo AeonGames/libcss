@@ -719,9 +719,11 @@ class CSSGroup:
 
     def print_destroy(self, t, p):
         if p.has_calc:
-            t.append("set_{}(style, 0, (css_fixed_or_calc)0, CSS_UNIT_PX);".format(p.name))
+            t.append("set_{}(style, 0, (css_fixed_or_calc){0}, CSS_UNIT_PX);".format(p.name))
         else:
             t.append("/* set_{}(style, 0, 0, CSS_UNIT_PX); */".format(p.name))
+        if p.name in overrides.get('destroy', {}):
+            t.append(overrides['destroy'][p.name], pre_formatted=True)
 
     def make_destroy_inc(self):
         """Output this group's destructors for the destroy.h file."""
@@ -744,11 +746,15 @@ class CSSGroup:
         for p in sorted(self.props, key=(lambda x: x.name)):
             if bool(p.comments) == for_commented:
                 if (p.values == None or len(p.values) == 0):
+                    if p.name in overrides.get('fields', {}):
+                        r.append(overrides['fields'][p.name])
                     continue
                 for v in p.values:
                     or_calc = '_or_calc' if v.calc else ''
                     v_type, v_name = shift_star(v.type, p.name)
                     r.append('{} {}{};'.format(v_type + or_calc, v_name, v.suffix))
+                if p.name in overrides.get('fields', {}):
+                    r.append(overrides['fields'][p.name])
         return r
 
     def make_text(self, filename):

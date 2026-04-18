@@ -594,5 +594,6 @@ extern const uint32_t property_unit_mask[CSS_N_PROPERTIES];
 #define UNIT_MASK_FLEX_WRAP             (0)
 #define UNIT_MASK_JUSTIFY_CONTENT       (0)
 #define UNIT_MASK_ORDER                 (0)
+#define UNIT_MASK_TEXT_ANCHOR           (0)
 
 #endif

@@ -6,6 +6,8 @@
 overrides = {
     'get': {},
     'set': {},
+    'fields': {},
+    'destroy': {},
     'properties': {}
 }
 
@@ -198,3 +200,91 @@ static inline css_error set_transform(css_computed_style *style, uint8_t type,
 
 	return CSS_OK;
 }'''
+
+
+# --- AeonGUI: SVG paint URI support for fill / stroke ---
+# fill and stroke gain an extra `lwc_string *fill_uri` / `stroke_uri` field
+# (overrides['fields']) and matching destruction (overrides['destroy']).
+# set_fill / set_stroke gain a `lwc_string *uri` parameter and
+# get_fill / get_stroke gain an `lwc_string **uri` out-parameter.
+
+overrides['fields']['fill'] = 'lwc_string *fill_uri;'
+overrides['fields']['stroke'] = 'lwc_string *stroke_uri;'
+
+overrides['destroy']['fill'] = 'lwc_string_unref(style->i.fill_uri);'
+overrides['destroy']['stroke'] = 'lwc_string_unref(style->i.stroke_uri);'
+
+overrides['set']['fill'] = """\
+static inline css_error set_fill(css_computed_style *style, uint8_t type,
+		css_color color, lwc_string *uri)
+{
+	uint32_t *bits = &style->i.bits[FILL_INDEX];
+
+	/* 3bits: ttt : type */
+	*bits = (*bits & ~FILL_MASK) | (((uint32_t)type & 0x7) << FILL_SHIFT);
+
+	style->i.fill = color;
+
+	lwc_string *old_uri = style->i.fill_uri;
+	if (uri != NULL) {
+		style->i.fill_uri = lwc_string_ref(uri);
+	} else {
+		style->i.fill_uri = NULL;
+	}
+	lwc_string_unref(old_uri);
+
+	return CSS_OK;
+}"""
+
+overrides['set']['stroke'] = """\
+static inline css_error set_stroke(css_computed_style *style, uint8_t type,
+	css_color color, lwc_string *uri)
+{
+	uint32_t *bits = &style->i.bits[STROKE_INDEX];
+
+	/* 3bits: ttt : type */
+	*bits = (*bits & ~STROKE_MASK) | (((uint32_t)type & 0x7) <<
+		STROKE_SHIFT);
+
+	style->i.stroke = color;
+
+	lwc_string *old_uri = style->i.stroke_uri;
+	if (uri != NULL) {
+		style->i.stroke_uri = lwc_string_ref(uri);
+	} else {
+		style->i.stroke_uri = NULL;
+	}
+	lwc_string_unref(old_uri);
+
+	return CSS_OK;
+}"""
+
+overrides['get']['fill'] = """\
+static inline uint8_t get_fill(const css_computed_style *style, css_color
+	*color, lwc_string **uri)
+{
+	uint32_t bits = style->i.bits[FILL_INDEX];
+	bits &= FILL_MASK;
+	bits >>= FILL_SHIFT;
+
+	/* 3bits: ttt : type */
+	*color = style->i.fill;
+	*uri = style->i.fill_uri;
+
+	return (bits & 0x7);
+}"""
+
+overrides['get']['stroke'] = """\
+static inline uint8_t get_stroke(const css_computed_style *style, css_color
+	*color, lwc_string **uri)
+{
+	uint32_t bits = style->i.bits[STROKE_INDEX];
+	bits &= STROKE_MASK;
+	bits >>= STROKE_SHIFT;
+
+	/* 3bits: ttt : type */
+	*color = style->i.stroke;
+	*uri = style->i.stroke_uri;
+
+	return (bits & 0x7);
+}"""

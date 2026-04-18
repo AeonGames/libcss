@@ -144,6 +144,7 @@ enum css_properties_e {
 	CSS_PROP_STROKE					= 0x07f,
 	CSS_PROP_STROKE_WIDTH			= 0x080,
 	CSS_PROP_TRANSFORM	            = 0x081,
+	CSS_PROP_TEXT_ANCHOR			= 0x082,
 
 	CSS_N_PROPERTIES
 };
@@ -833,6 +834,13 @@ enum css_text_align_e {
 	CSS_TEXT_ALIGN_LIBCSS_LEFT		= 0x7,
 	CSS_TEXT_ALIGN_LIBCSS_CENTER		= 0x8,
 	CSS_TEXT_ALIGN_LIBCSS_RIGHT		= 0x9
+};
+
+enum css_text_anchor_e {
+	CSS_TEXT_ANCHOR_INHERIT			= 0x0,
+	CSS_TEXT_ANCHOR_START			= 0x1,
+	CSS_TEXT_ANCHOR_MIDDLE			= 0x2,
+	CSS_TEXT_ANCHOR_END			= 0x3
 };
 
 enum css_text_decoration_e {

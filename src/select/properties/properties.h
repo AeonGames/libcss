@@ -136,6 +136,7 @@ PROPERTY_FUNCS(stroke_opacity);
 PROPERTY_FUNCS(stroke_width);
 PROPERTY_FUNCS(table_layout);
 PROPERTY_FUNCS(text_align);
+PROPERTY_FUNCS(text_anchor);
 PROPERTY_FUNCS(text_decoration);
 PROPERTY_FUNCS(text_indent);
 PROPERTY_FUNCS(text_transform);

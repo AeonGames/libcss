@@ -787,6 +787,12 @@ enum op_text_align {
 	TEXT_ALIGN_LIBCSS_RIGHT		= 0x0006
 };
 
+enum op_text_anchor {
+	TEXT_ANCHOR_START		= 0x0000,
+	TEXT_ANCHOR_MIDDLE		= 0x0001,
+	TEXT_ANCHOR_END			= 0x0002
+};
+
 enum op_text_decoration {
 	TEXT_DECORATION_NONE		= 0x0000,
 

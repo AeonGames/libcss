@@ -221,6 +221,7 @@ const stringmap_entry stringmap[LAST_KNOWN] = {
 	SMAP("stroke-width"),
 	SMAP("table-layout"),
 	SMAP("text-align"),
+	SMAP("text-anchor"),
 	SMAP("text-decoration"),
 	SMAP("text-indent"),
 	SMAP("text-transform"),
@@ -500,6 +501,8 @@ const stringmap_entry stringmap[LAST_KNOWN] = {
 	SMAP("context-fill"),
 	SMAP("context-stroke"),
 	SMAP("matrix"),
+	SMAP("start"),
+	SMAP("end"),
 
 	/* Named colours */
 	SMAP("aliceblue"),

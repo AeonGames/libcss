@@ -52,6 +52,8 @@
 /* set_direction(style, 0, 0, CSS_UNIT_PX); */
 /* set_display(style, 0, 0, CSS_UNIT_PX); */
 /* set_empty_cells(style, 0, 0, CSS_UNIT_PX); */
+/* set_fill(style, 0, 0, CSS_UNIT_PX); */
+lwc_string_unref(style->i.fill_uri);
 /* set_fill_opacity(style, 0, 0, CSS_UNIT_PX); */
 /* set_flex_basis(style, 0, 0, CSS_UNIT_PX); */
 /* set_flex_direction(style, 0, 0, CSS_UNIT_PX); */
@@ -98,19 +100,24 @@
 /* set_position(style, 0, 0, CSS_UNIT_PX); */
 /* set_quotes(style, 0, 0, CSS_UNIT_PX); */
 /* set_right(style, 0, 0, CSS_UNIT_PX); */
+/* set_stroke(style, 0, 0, CSS_UNIT_PX); */
+lwc_string_unref(style->i.stroke_uri);
 /* set_stroke_opacity(style, 0, 0, CSS_UNIT_PX); */
+/* set_stroke_width(style, 0, 0, CSS_UNIT_PX); */
 /* set_table_layout(style, 0, 0, CSS_UNIT_PX); */
 /* set_text_align(style, 0, 0, CSS_UNIT_PX); */
+/* set_text_anchor(style, 0, 0, CSS_UNIT_PX); */
 /* set_text_decoration(style, 0, 0, CSS_UNIT_PX); */
 /* set_text_indent(style, 0, 0, CSS_UNIT_PX); */
 /* set_text_transform(style, 0, 0, CSS_UNIT_PX); */
 /* set_top(style, 0, 0, CSS_UNIT_PX); */
+/* set_transform(style, 0, 0, CSS_UNIT_PX); */
 /* set_unicode_bidi(style, 0, 0, CSS_UNIT_PX); */
 /* set_vertical_align(style, 0, 0, CSS_UNIT_PX); */
 /* set_visibility(style, 0, 0, CSS_UNIT_PX); */
 /* set_white_space(style, 0, 0, CSS_UNIT_PX); */
 /* set_widows(style, 0, 0, CSS_UNIT_PX); */
-set_width(style, 0, (css_fixed_or_calc){ 0 }, CSS_UNIT_PX);
+set_width(style, 0, (css_fixed_or_calc){0}, CSS_UNIT_PX);
 /* set_word_spacing(style, 0, 0, CSS_UNIT_PX); */
 /* set_writing_mode(style, 0, 0, CSS_UNIT_PX); */
 /* set_z_index(style, 0, 0, CSS_UNIT_PX); */
